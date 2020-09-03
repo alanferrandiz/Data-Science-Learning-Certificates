@@ -38,7 +38,7 @@
 
             if (datafiltrada[0] == null) {
               // txt_search.value = txt_search_param;
-              document.getElementById('lbl_status').value = "Record NOT found in database";
+              document.getElementById('lbl_status').value = "Record " + document.getElementById('txt_search').value + " NOT found in database";
               document.getElementById('lbl_status').className = "disabledinputdscolor";
 
               document.getElementById('txt_cer_id').value = "";
@@ -56,7 +56,7 @@
               document.getElementById('txt_search').select();
             } else {
               // txt_search.value = txt_search_param;
-              document.getElementById('lbl_status').value = "Record found in database";
+              document.getElementById('lbl_status').value = "Record " + document.getElementById('txt_search').value + "  found in database";
               document.getElementById('lbl_status').className = "disabledinputdscolor";
 
               document.getElementById('txt_cer_id').value = datafiltrada[0].cer_id;
@@ -147,7 +147,7 @@
       <div style="height: 20px;">
       </div>
 
-      <label class="disabledinputdscolor">Certificate Id</label>
+      <label class="disabledinputdscolor">Certificate Code</label>
       <input
         id="txt_cer_id"
         name="txt_cer_id"
