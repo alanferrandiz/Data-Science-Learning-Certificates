@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>USF Health 01</title>
+    <meta charset="UTF-8" />
+    <!-- <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0"/> -->
+    <link rel="stylesheet" href="src/styles.css" />
+    <script src="https://d3js.org/d3-dsv.v1.js"></script>
+    <script src="https://d3js.org/d3-fetch.v1.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  </head>
+
+  <!-- <body onload="fn_search();"> -->
+  <body>
+    <script>
+      function fn_search() {
+        
+
+        // txt_search.focus();
+        // txt_search.select();
+        
+        //const urlParams = new URLSearchParams(window.location.search);
+
+        // if (document.getElementById('txt_ply_id').value != "") {
+
+ 
+          //const txt_search_param = urlParams.get("txt_search");
+   
+        
+
+          d3.csv("https://datasciencelearning.z22.web.core.windows.net/csv/certificates.csv").then(function(data) {
+
+            var datafiltrada = data.filter(function(d) {
+              
+              return d.cer_id == document.getElementById('txt_search').value;
+            });
+
+            if (datafiltrada[0] == null) {
+              // txt_search.value = txt_search_param;
+              document.getElementById('lbl_status').value = "Record NOT found in database";
+              document.getElementById('lbl_status').className = "disabledinputdscolor";
+
+              document.getElementById('txt_cer_id').value = "";
+              document.getElementById('txt_cer_first_name').value = "";
+              document.getElementById('txt_cer_last_name').value = "";
+              document.getElementById('txt_cer_date').value = "";
+              document.getElementById('txt_cer_workshop').value = "";
+              document.getElementById('txt_cer_link').value = "";
+              document.getElementById('lnk_certificate').innerHTML = "";
+              document.getElementById('lnk_certificate').hidden = true;
+
+  
+              $('#txt_search').focus();
+              document.getElementById('txt_search').focus();
+              document.getElementById('txt_search').select();
+            } else {
+              // txt_search.value = txt_search_param;
+              document.getElementById('lbl_status').value = "Record found in database";
+              document.getElementById('lbl_status').className = "disabledinputdscolor";
+
+              document.getElementById('txt_cer_id').value = datafiltrada[0].cer_id;
+              document.getElementById('txt_cer_first_name').value = datafiltrada[0].cer_first_name;
+              document.getElementById('txt_cer_last_name').value = datafiltrada[0].cer_last_name;
+              document.getElementById('txt_cer_date').value = datafiltrada[0].cer_date;
+              document.getElementById('txt_cer_workshop').value = datafiltrada[0].cer_workshop;
+              document.getElementById('txt_cer_link').value = "https://datasciencelearning.z22.web.core.windows.net/certificates/" +  datafiltrada[0].cer_id + ".pdf";
+              document.getElementById('lnk_certificate').innerHTML = "View certificate";
+              document.getElementById('lnk_certificate').target="_new";
+              document.getElementById('lnk_certificate').href = "https://datasciencelearning.z22.web.core.windows.net/certificates/" +  datafiltrada[0].cer_id + ".pdf";
+      
+
+              $('#txt_search').focus();
+              document.getElementById('txt_search').focus();
+              document.getElementById('txt_search').select();
+         
+            }
+          });
+        //}
+      }
+    </script>
+
+
+
+
+    <img
+      id="dsl_main_logo"
+      src="https://datasciencelearningus.files.wordpress.com/2020/08/cropped-data_science_learning_logo_white-2.png"
+    />
+
+
+    <form>
+      <label class="disabledinputdscolor">Type your certificate code</label>
+      <input
+        type="text"
+        id="txt_search"
+        name="txt_search"
+        placeholder="Type certificate code"
+        class="disabledinputwhite"
+        required
+      />
+
+    <div>
+          <div class="div_button" style="float: left;">
+          <input
+            id="btn_search"
+            name="btn_search"
+            class="button"
+            type="button"
+            value="SEARCH"
+            onclick="fn_search();"
+          />
+          </div>
+
+          <div class="div_button" style="float: right;">
+            <input
+              id="btn_goback"
+              name="btn_goback"
+              class="button"
+              type="button"
+              value="GO BACK"
+              onclick="location.href = 'https://www.datasciencelearning.us/verify';"
+            />
+          </div>
+    </div>
+
+      <input
+        id="lbl_status"
+        name="lbl_status"
+        placeholder=""
+        class="disabledinputdscolor"
+        disabled
+      />
+
+      <div style="height: 20px;">
+      </div>
+
+      <div style="text-align: center;">
+        <a href="#"
+          id="lnk_certificate"
+          name="lnk_certificate"
+          target="_new"
+          class="disabledinputdscolor"
+        >View certificate</a>
+      </div>
+
+      <div style="height: 20px;">
+      </div>
+
+      <label class="disabledinputdscolor">Certificate Id</label>
+      <input
+        id="txt_cer_id"
+        name="txt_cer_id"
+        class="disabledinputwhite"
+        disabled
+      />
+
+      <label class="disabledinputdscolor">Student First Name</label>
+      <input
+        id="txt_cer_first_name"
+        name="txt_cer_first_name"
+        placeholder=""
+        class="disabledinputwhite"
+        disabled
+      />
+      <label class="disabledinputdscolor">Student Last Name</label>
+      <input
+        id="txt_cer_last_name"
+        name="txt_cer_last_name"
+        placeholder=""
+        class="disabledinputwhite"
+        disabled
+      />
+      <label class="disabledinputdscolor">Date of Certificate</label>
+      <input
+        id="txt_cer_date"
+        name="txt_cer_date"
+        placeholder=""
+        class="disabledinputwhite"
+        disabled
+      />
+
+      <label class="disabledinputdscolor">Workshop</label>
+      <input
+        id="txt_cer_workshop"
+        name="txt_cer_workshop"
+        placeholder=""
+        class="disabledinputwhite"
+        disabled
+      />
+
+      <label class="disabledinputdscolor">Verification Link</label>
+      <input
+        id="txt_cer_link"
+        name="txt_cer_link"
+        placeholder=""
+        class="disabledinputwhite"
+        disabled
+      />
+
+
+    </form>
+
+    <script>
+      $('#txt_search').focus();
+
+      $("#txt_search").keypress(function(e) {
+          if(e.which == 13) {
+          $("#btn_search").click();
+          }
+      });
+    </script>
+
+  </body>
+</html>
